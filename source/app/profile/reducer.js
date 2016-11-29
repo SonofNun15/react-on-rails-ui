@@ -1,4 +1,5 @@
 import * as actions from './actions'
+import * as messageActions from '../messages/actions'
 
 const defaultState = {
   loggedIn: false,
@@ -66,6 +67,13 @@ export default function profileReducer(state = defaultState, action) {
         loggingOut: false,
         loggedIn: false,
         settings: null,
+      }
+
+    case messageActions.SHOW_ERROR:
+      return {
+        ...state,
+        authCheckPending: false,
+        loggingOut: false,
       }
 
     default:

@@ -1,5 +1,3 @@
-const delay = 2000
-
 class MileageApi {
   constructor() {
     this.loggedIn = false
@@ -8,6 +6,8 @@ class MileageApi {
       email: 'jgraber@covermymeds.com',
       gravatarHash: '',
     }
+
+    this.delay = 2000
   }
 
   getVehicles() {
@@ -25,7 +25,8 @@ class MileageApi {
   }
 
   login() {
-    return this.mock(this.mockUser, () => { this.loggedIn = true })
+    return this.mockError('The login failed!')
+    // return this.mock(this.mockUser, () => { this.loggedIn = true })
   }
 
   logout() {
@@ -37,7 +38,15 @@ class MileageApi {
       setTimeout(() => {
         if (execute) { execute() }
         resolve(data)
-      }, delay)
+      }, this.delay)
+    })
+  }
+
+  mockError(error) {
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        reject(error)
+      }, this.delay)
     })
   }
 }
