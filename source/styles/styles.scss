@@ -1,0 +1,24 @@
+body h2 {
+  font-weight: normal;
+  font-size: 1.8em;
+}
+
+h3 {
+  font-size: 1.3em !important;
+  font-weight: normal !important;
+}
+
+// Bad, bad, bad
+// !important is required because currently bootstrap styles are included
+//   before these styles. these can't be more specific, so must have
+//   !important to override bootstrap. In a perfect world, our styles get
+//   precedence over bootstrap.
+a:focus, button:focus, div:focus {
+  outline: 1px dashed #e6e6e6 !important;
+  outline-offset: 2px !important;
+}
+
+.btn {
+  border-radius: 0 !important;
+  box-shadow: 2px 2px 3px #555555;
+}

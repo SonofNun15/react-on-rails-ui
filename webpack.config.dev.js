@@ -16,6 +16,9 @@ module.exports = {
     publicPath: '/',
     filename: 'bundle.js',
   },
+  devServer: {
+    historyApiFallback: true,
+  },
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoErrorsPlugin(),
@@ -29,7 +32,7 @@ module.exports = {
   module: {
     loaders: [
       {test: /\.js$/, exclude: /node_modules/, loaders: ['babel']},
-      {test: /\.css$/, loaders: ['style','css']},
+      {test: /\.scss$/, loaders: ['style','css', 'sass']},
     ]
   }
 };

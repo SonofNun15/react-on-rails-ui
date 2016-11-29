@@ -1,0 +1,50 @@
+.vehicle {
+  .title {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .maintenance {
+    text-align: center;
+    font-size: 1.2em;
+  }
+
+  .important, .decrease {
+    color: darkred;
+  }
+
+  .increase {
+    color: green;
+  }
+
+  .buttons {
+    margin: 20px 0 10px;
+  }
+
+  .entry-label {
+    font-weight: 500;
+  }
+
+  .data-table {
+    max-width: 1200px;
+
+    margin: 10px 0;
+
+    font-size: 1.1em;
+
+    .modifier {
+      width: 10px;
+    }
+
+    .entry {
+      padding: 5px;
+      border-top: 1px solid #ddd;
+
+      .date {
+        text-align: right;
+      }
+    }
+  }
+}

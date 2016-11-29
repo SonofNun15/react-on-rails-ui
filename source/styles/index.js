@@ -1,0 +1,6 @@
+import './footer.scss'
+import './header.scss'
+import './index.scss'
+import './layout.scss'
+import './styles.scss'
+import './vehicle.scss'

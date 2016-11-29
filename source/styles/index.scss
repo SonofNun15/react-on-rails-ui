@@ -1,0 +1,38 @@
+.vehicles {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+a.vehicle {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+
+  margin-top: 10px;
+  margin-right: 10px;
+
+  padding: 15px 10px;
+
+  white-space: normal;
+  width: 200px;
+  height: 125px;
+
+  span {
+    display: block;
+  }
+
+  .make-model {
+    font-size: 1.1em;
+  }
+
+  .color {
+    font-size: 0.9em;
+    color: #888;
+  }
+
+  .fa-plus {
+    color: green
+  }
+}
