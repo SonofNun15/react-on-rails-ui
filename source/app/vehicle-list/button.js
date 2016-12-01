@@ -1,23 +1,32 @@
-import React from 'react'
+import React, { PropTypes } from 'react'
 
-const VehicleButton = () => {
+import { Link } from 'react-router'
+
+const VehicleButton = ({ vehicle: { id, year, make,
+                                    model, color, mileage } }) => {
   return (
-    <a href="#" className="vehicle btn btn-default" tabIndex="0">
+    <Link to={`/vehicles/${id}`} className="vehicle btn btn-default" tabIndex="0">
       <p>
         <span className="year-make-model">
-          2012
-          Toyota
-          Camry
+          {`${year} `}
+          {`${make} `}
+          {model}
         </span>
-        <span className="color">Cyan</span>
+        <span className="color">{color}</span>
       </p>
-      <span className="mileage">202,142 miles</span>
-    </a>
+      <span className="mileage">{mileage} miles</span>
+    </Link>
   )
 }
 
 VehicleButton.propTypes = {
-  vehicle: React.PropTypes.object.isRequired,
+  vehicle: PropTypes.shape({
+    year: PropTypes.string,
+    make: PropTypes.string,
+    model: PropTypes.string,
+    color: PropTypes.string,
+    mileage: PropTypes.number,
+  }).isRequired,
 }
 
 export default VehicleButton

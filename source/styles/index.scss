@@ -4,7 +4,7 @@
   flex-wrap: wrap;
 }
 
-a.vehicle {
+a.vehicle, button.vehicle {
   display: flex;
   flex-direction: column;
   justify-content: space-around;

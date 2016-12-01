@@ -1,21 +1,48 @@
 class MileageApi {
   constructor() {
-    this.loggedIn = false
+    this.loggedIn = true// false
     this.mockUser = {
       name: 'Josh Graber',
       email: 'jgraber@covermymeds.com',
       gravatarHash: '',
     }
 
-    this.delay = 2000
+    this.nextVehicleId = 3
+    this.mockVehicles = [
+      {
+        id: 1,
+        year: '2012',
+        make: 'Toyota',
+        model: 'Camry',
+        color: 'Silver',
+        mileage: 202142,
+      },
+      {
+        id: 2,
+        year: '2003',
+        make: 'Honda',
+        model: 'Odyssey',
+        color: 'Cyan',
+        mileage: 190230,
+      },
+    ]
+
+    this.delay = 500
   }
 
   getVehicles() {
-    return this.mock([
-      { id: 1 },
-      { id: 2 },
-      { id: 3 },
-    ])
+    return this.mock(this.mockVehicles)
+  }
+
+  createVehicle(vehicle) {
+    this.mockVehicles = [
+      ...this.mockVehicles,
+      vehicle,
+    ]
+    return this.mock(vehicle, () => {
+      vehicle.id = this.nextVehicleId
+      this.nextVehicleId++
+    })
   }
 
   getProfile() {
@@ -25,11 +52,11 @@ class MileageApi {
   }
 
   login() {
-    return this.mockError('The login failed!')
-    // return this.mock(this.mockUser, () => { this.loggedIn = true })
+    return this.mock(this.mockUser, () => { this.loggedIn = true })
   }
 
   logout() {
+    //return this.mockError('Failed to logout!')
     return this.mock(null, () => { this.loggedIn = false })
   }
 
