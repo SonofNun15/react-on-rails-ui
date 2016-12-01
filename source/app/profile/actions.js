@@ -1,4 +1,5 @@
 import api from '../utilities/api'
+import { push } from 'react-router-redux'
 
 import { showError } from '../messages/actions'
 
@@ -10,12 +11,14 @@ export const LOGGING_IN = 'LOGGING_IN'
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS'
 export const LOGGING_OUT = 'LOGGING_OUT'
 export const LOGOUT_SUCCESS = 'LOGOUT_SUCCESS'
+export const AUTHENTICATED = 'AUTHENTICATED'
 
 export function getProfile() {
   return dispatch => {
     dispatch(loadingProfile())
     return api.getProfile().then(profile => {
       dispatch(loadProfileSuccess(profile))
+      dispatch(authenticated())
     }).catch(error => {
       throw error
     })
@@ -30,6 +33,10 @@ function loadProfileSuccess(profile) {
   return { type: FETCH_PROFILE_SUCCESS, profile }
 }
 
+function authenticated() {
+  return { type: AUTHENTICATED }
+}
+
 export function openLogin() {
   return { type: OPEN_LOGIN }
 }
@@ -42,6 +49,8 @@ export function login(email, password) {
     dispatch(loggingIn())
     return api.login(email, password).then(profile => {
       dispatch(loginSuccess(profile))
+      dispatch(authenticated())
+      dispatch(push('/'))
     }).catch(error => {
       dispatch(showError(error))
     })

@@ -21,6 +21,7 @@ class LoggedOut extends React.Component {
   updateState(event) {
     const field = event.target.name
     this.setState({
+      ...this.state,
       [field]: event.target.value,
     })
   }
@@ -46,7 +47,7 @@ class LoggedOut extends React.Component {
         <Modal show={showLoginDialog} onHide={closeLoginDialog}>
           <form onSubmit={this.login}>
             <Modal.Header>
-              <Modal.Title>Log in</Modal.Title>
+              <Modal.Title>Log In</Modal.Title>
             </Modal.Header>
 
             <Modal.Body>
