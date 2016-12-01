@@ -18,7 +18,7 @@ class VehicleLoader extends React.Component {
 }
 
 VehicleLoader.propTypes = {
-  children: PropTypes.array,
+  children: PropTypes.object.isRequired,
   actions: PropTypes.object,
 }
 
