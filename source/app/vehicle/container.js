@@ -12,13 +12,6 @@ class VehicleContainer extends React.Component {
 
   }
 
-  componentWillReceiveProps(nextProps) {
-    const { stale } = nextProps
-    if (stale) {
-      this.props.listActions.loadVehicles()
-    }
-  }
-
   render() {
     const { vehicle } = this.props
     return (

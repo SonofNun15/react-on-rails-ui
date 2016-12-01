@@ -16,13 +16,6 @@ class VehicleContainer extends React.Component {
     this.saveVehicle = this.saveVehicle.bind(this)
   }
 
-  componentWillReceiveProps(nextProps) {
-    const { stale } = nextProps
-    if (stale) {
-      this.props.actions.loadVehicles()
-    }
-  }
-
   addVehicle() {
     this.props.actions.openVehicleDialog()
   }
