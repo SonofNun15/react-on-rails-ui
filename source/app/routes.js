@@ -13,7 +13,9 @@ import { requireAuthentication } from './profile/authentication'
 
 export default (
   <Route path="/" component={App}>
-    <IndexRoute component={VehicleListContainer} />
+    <Route component={VehicleLoader}>
+      <IndexRoute component={VehicleListContainer} />
+    </Route>
 
     <Route path="vehicles" component={VehicleLoader}>
       <Route path=":id" component={requireAuthentication(VehicleContainer)} />
