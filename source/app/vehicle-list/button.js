@@ -2,8 +2,8 @@ import React, { PropTypes } from 'react'
 
 import { Link } from 'react-router'
 
-const VehicleButton = ({ vehicle: { id, year, make,
-                                    model, color, mileage } }) => {
+const VehicleButton = ({ vehicle }) => {
+  const { id, year, make, model, color } = vehicle
   return (
     <Link to={`/vehicles/${id}`} className="vehicle btn btn-default" tabIndex="0">
       <p>
@@ -14,7 +14,7 @@ const VehicleButton = ({ vehicle: { id, year, make,
         </span>
         <span className="color">{color}</span>
       </p>
-      <span className="mileage">{mileage} miles</span>
+      <span className="mileage">{vehicle.lifetimeMileage()} miles</span>
     </Link>
   )
 }
@@ -25,7 +25,7 @@ VehicleButton.propTypes = {
     make: PropTypes.string,
     model: PropTypes.string,
     color: PropTypes.string,
-    mileage: PropTypes.number,
+    lifetimeMileage: PropTypes.func,
   }).isRequired,
 }
 

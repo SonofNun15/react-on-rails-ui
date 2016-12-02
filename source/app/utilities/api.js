@@ -1,4 +1,4 @@
-import Vehicle from '../vehicle/model'
+import Vehicle from '../models/vehicle'
 
 class MileageApi {
   constructor() {
@@ -17,7 +17,10 @@ class MileageApi {
         make: 'Toyota',
         model: 'Camry',
         color: 'Silver',
-        mileage: 202142,
+        baseMileage: 202142,
+        fuelings: [
+          { miles: 300, gas: 15, cost: 30, date: new Date(2016, 11, 1)}
+        ],
       }),
       new Vehicle({
         id: 2,
@@ -25,7 +28,14 @@ class MileageApi {
         make: 'Honda',
         model: 'Odyssey',
         color: 'Cyan',
-        mileage: 190230,
+        baseMileage: 190230,
+        fuelings: [
+          { miles: 310, gas: 15.2, cost: 32, date: new Date(2016, 10, 22) },
+          { miles: 203, gas: 12, cost: 25, date: new Date(2016, 10, 25) },
+        ],
+        maintenance: [
+          { mechanic: "Erb's Automotive", description: "Oil and turn signal", cost: 254, date: new Date(2016, 10, 23) },
+        ],
       }),
     ]
 

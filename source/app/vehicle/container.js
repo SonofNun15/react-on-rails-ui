@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 
 import * as listActions from '../vehicle-list/actions'
 //import * as actionCreators from './actions'
-//import VehicleDetails from './vehicle'
+import VehicleDetails from './vehicle'
 
 class VehicleContainer extends React.Component {
   constructor(props, context) {
@@ -14,9 +14,11 @@ class VehicleContainer extends React.Component {
 
   render() {
     const { vehicle } = this.props
-    return (
-      <div>{JSON.stringify(vehicle)}</div>
-    )
+    if (vehicle)
+      return <VehicleDetails vehicle={vehicle} />
+
+    else
+      return <span>LOADING, please wait...</span>
   }
 }
 
@@ -29,7 +31,8 @@ VehicleContainer.propTypes = {
 }
 
 function mapStateToProps(state, ownProps) {
-  const { params: { id } } = ownProps
+  let { params: { id } } = ownProps
+  id = parseInt(id)
   const vehicle = state.vehicleList.vehicles.find(v => v.id == id)
 
   return {
