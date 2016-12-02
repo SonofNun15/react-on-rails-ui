@@ -1,5 +1,7 @@
 class Fueling {
-  constructor(values) {
+  constructor(values, getMPG) {
+    this.vehicleMPG = getMPG
+
     this.id = values.id
     this.miles = values.miles
     this.gas = values.gas
@@ -9,6 +11,10 @@ class Fueling {
 
   mpg() {
     return this.miles / this.gas
+  }
+
+  aboveAverageMPG() {
+    return this.mpg() > this.vehicleMPG()
   }
 }
 

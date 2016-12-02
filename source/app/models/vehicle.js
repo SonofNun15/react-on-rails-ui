@@ -13,10 +13,16 @@ class Vehicle {
     this.make = values.make
     this.model = values.model
     this.color = values.color
-    this.baseMileage = values.mileage
+    this.baseMileage = values.baseMileage
 
-    this.fuelings = _.map(values.fuelings, f => new Fueling(f))
-    this.maintenance = _.map(values.maintenance, m => new Maintenance(m))
+    this.fuelings = _.map(values.fuelings, f => {
+      return new Fueling(f, () => this.lifetimeMPG())
+    })
+    this.maintenance = _.map(values.maintenance, m => {
+      return new Maintenance(m,
+                             m => this.lastMaintenance() == m,
+                             () => this.requiresMaintenance())
+    })
 
     this.milesBeforeMaintenance = 5000
   }

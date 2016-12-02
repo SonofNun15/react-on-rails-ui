@@ -10,6 +10,9 @@ class MileageApi {
     }
 
     this.nextVehicleId = 3
+    this.nextFuelingId = 4
+    this.nextMaintenanceId = 2
+
     this.mockVehicles = [
       new Vehicle({
         id: 1,
@@ -19,7 +22,7 @@ class MileageApi {
         color: 'Silver',
         baseMileage: 202142,
         fuelings: [
-          { miles: 300, gas: 15, cost: 30, date: new Date(2016, 11, 1)}
+          { id: 1, miles: 300, gas: 15, cost: 30, date: new Date(2016, 11, 1)}
         ],
       }),
       new Vehicle({
@@ -30,11 +33,11 @@ class MileageApi {
         color: 'Cyan',
         baseMileage: 190230,
         fuelings: [
-          { miles: 310, gas: 15.2, cost: 32, date: new Date(2016, 10, 22) },
-          { miles: 203, gas: 12, cost: 25, date: new Date(2016, 10, 25) },
+          { id: 2, miles: 310, gas: 15.2, cost: 32, date: new Date(2016, 10, 22) },
+          { id: 3, miles: 203, gas: 12, cost: 25, date: new Date(2016, 10, 25) },
         ],
         maintenance: [
-          { mechanic: "Erb's Automotive", description: "Oil and turn signal", cost: 254, date: new Date(2016, 10, 23) },
+          { id: 1, mechanic: "Erb's Automotive", description: "Oil and turn signal", cost: 254, date: new Date(2016, 10, 23) },
         ],
       }),
     ]

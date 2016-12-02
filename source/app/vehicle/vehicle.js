@@ -3,7 +3,7 @@ import React, { PropTypes } from 'react'
 import VehicleTitle from './title'
 import MPGSummary from './mpg-summary'
 import MileageSummary from './mileage-summary'
-import VehicleDataTable from './data-table'
+import VehicleDataTable from './data-table/data-table'
 
 const VehicleDetails = ({ vehicle }) => {
   return (
@@ -11,13 +11,14 @@ const VehicleDetails = ({ vehicle }) => {
       <VehicleTitle vehicle={vehicle} />
       <div className="summaries row">
         <div className="col-sm-6">
-          <MPGSummary />
+          <MPGSummary vehicle={vehicle} />
         </div>
         <div className="col-sm-6">
-          <MileageSummary />
+          <MileageSummary vehicle={vehicle} />
         </div>
       </div>
-      <VehicleDataTable />
+      <VehicleDataTable fuelings={vehicle.fuelings}
+                        maintenance={vehicle.maintenance} />
     </div>
   )
 }
