@@ -1,5 +1,6 @@
 import React, { PropTypes } from 'react'
 import moment from 'moment'
+import numeral from 'numeral'
 
 const FuelingEntry = ({ fueling }) => {
   return (
@@ -11,7 +12,7 @@ const FuelingEntry = ({ fueling }) => {
             : <i className="fa modifier fa-caret-down decrease"></i>
         }
         <i className="fa fa-fw fa-tachometer"></i>
-        <span> {fueling.mpg()} MPG</span>
+        <span> {numeral(fueling.mpg()).format('0.[00]')} MPG</span>
       </div>
       <div className="detail col-sm-4">
         <span>{fueling.miles} miles</span>

@@ -4,7 +4,7 @@ const VehicleTitle = ({ vehicle }) => {
   const { year, make, model } = vehicle
   const maintenance = <div className="important maintenance">
                         <i className="fa fa-exclamation-circle"></i>
-                        Maintenance required!
+                        <span> Maintenance required!</span>
                       </div>
 
   return (

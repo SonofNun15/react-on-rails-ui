@@ -1,4 +1,5 @@
 import React, { PropTypes } from 'react'
+import numeral from 'numeral'
 
 import { Link } from 'react-router'
 
@@ -14,7 +15,9 @@ const VehicleButton = ({ vehicle }) => {
         </span>
         <span className="color">{color}</span>
       </p>
-      <span className="mileage">{vehicle.lifetimeMileage()} miles</span>
+      <span className="mileage">
+        {numeral(vehicle.lifetimeMileage()).format('0,0')} miles
+      </span>
     </Link>
   )
 }

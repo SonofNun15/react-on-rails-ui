@@ -9,7 +9,7 @@ const MaintenanceEntry = ({ maintenance }) => {
       <div className="col-sm-3">
         { maintenance.needsAttention() ? indicator : null }
         <i className="fa fa-wrench"></i>
-        <span>{maintenance.mechanic}</span>
+        <span> {maintenance.mechanic}</span>
       </div>
       <div className="detail col-sm-4">
         <span>{maintenance.description}</span>
