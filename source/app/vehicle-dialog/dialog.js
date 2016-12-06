@@ -11,12 +11,16 @@ class VehicleDialog extends React.Component {
     this.onChangeMileage = this.onChangeMileage.bind(this)
     this.create = this.create.bind(this)
 
-    this.state = {
-      year: '',
-      make: '',
-      model: '',
-      color: '',
-      mileage: 0,
+    if (props.vehicle) {
+      this.state = { ...props.vehicle }
+    } else {
+      this.state = {
+        year: '',
+        make: '',
+        model: '',
+        color: '',
+        baseMileage: 0,
+      }
     }
   }
 
@@ -31,7 +35,7 @@ class VehicleDialog extends React.Component {
   onChangeMileage(event) {
     this.setState({
       ...this.state,
-      mileage: parseInt(event.target.value),
+      baseMileage: parseInt(event.target.value),
     })
   }
 
@@ -43,7 +47,7 @@ class VehicleDialog extends React.Component {
 
   render() {
     const { show, onClose } = this.props
-    const { year, make, model, color, mileage } = this.state
+    const { year, make, model, color, baseMileage } = this.state
     return (
       <Modal show={show} onHide={onClose}>
         <form onSubmit={this.create}>
@@ -59,8 +63,8 @@ class VehicleDialog extends React.Component {
                       value={model} onChange={this.onChange} />
             <TextInput name="color" label="Color"
                       value={color} onChange={this.onChange} />
-            <NumberInput name="mileage" label="Mileage"
-                        value={mileage} onChange={this.onChangeMileage} />
+            <NumberInput name="baseMileage" label="Mileage"
+                        value={baseMileage} onChange={this.onChangeMileage} />
           </Modal.Body>
           <Modal.Footer>
             <button type="button" className="btn btn-default" onClick={onClose}>
@@ -77,6 +81,7 @@ class VehicleDialog extends React.Component {
 }
 
 VehicleDialog.propTypes = {
+  vehicle: PropTypes.object,
   show: PropTypes.bool,
   onClose: PropTypes.func,
   onCreate: PropTypes.func,

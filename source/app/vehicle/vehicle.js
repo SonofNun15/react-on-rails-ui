@@ -5,10 +5,10 @@ import MPGSummary from './mpg-summary'
 import MileageSummary from './mileage-summary'
 import VehicleDataTable from './data-table/data-table'
 
-const VehicleDetails = ({ vehicle }) => {
+const VehicleDetails = ({ vehicle, onEdit, onDelete }) => {
   return (
     <div className="vehicle">
-      <VehicleTitle vehicle={vehicle} />
+      <VehicleTitle vehicle={vehicle} onEdit={onEdit} onDelete={onDelete} />
       <div className="summaries row">
         <div className="col-sm-6">
           <MPGSummary vehicle={vehicle} />
@@ -25,6 +25,8 @@ const VehicleDetails = ({ vehicle }) => {
 
 VehicleDetails.propTypes = {
   vehicle: PropTypes.object,
+  onEdit: PropTypes.func,
+  onDelete: PropTypes.func,
 }
 
 export default VehicleDetails

@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react'
 
-const VehicleTitle = ({ vehicle }) => {
+const VehicleTitle = ({ vehicle, onEdit, onDelete }) => {
   const { year, make, model } = vehicle
   const maintenance = <div className="important maintenance">
                         <i className="fa fa-exclamation-circle"></i>
@@ -16,10 +16,10 @@ const VehicleTitle = ({ vehicle }) => {
           <span>{model} </span>
         </h2>
         <div className="buttons">
-          <button className="btn btn-default">
+          <button className="btn btn-default" onClick={onEdit}>
             <i className="fa fa-edit"></i>
           </button>
-          <button className="btn btn-danger">
+          <button className="btn btn-danger" onClick={onDelete}>
             <i className="fa fa-times"></i>
           </button>
         </div>
@@ -36,6 +36,8 @@ VehicleTitle.propTypes = {
     model: PropTypes.string,
     requiresMaintenance: PropTypes.func,
   }),
+  onEdit: PropTypes.func,
+  onDelete: PropTypes.func,
 }
 
 export default VehicleTitle

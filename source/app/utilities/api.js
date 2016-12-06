@@ -1,5 +1,3 @@
-import Vehicle from '../models/vehicle'
-
 class MileageApi {
   constructor() {
     this.loggedIn = true// false
@@ -14,7 +12,7 @@ class MileageApi {
     this.nextMaintenanceId = 2
 
     this.mockVehicles = [
-      new Vehicle({
+      {
         id: 1,
         year: '2012',
         make: 'Toyota',
@@ -24,8 +22,8 @@ class MileageApi {
         fuelings: [
           { id: 1, miles: 300, gas: 15, cost: 30, date: new Date(2016, 11, 1)}
         ],
-      }),
-      new Vehicle({
+      },
+      {
         id: 2,
         year: '2003',
         make: 'Honda',
@@ -39,7 +37,7 @@ class MileageApi {
         maintenance: [
           { id: 1, mechanic: "Erb's Automotive", description: "Oil and turn signal", cost: 254, date: new Date(2016, 10, 23) },
         ],
-      }),
+      },
     ]
 
     this.delay = 500
@@ -49,16 +47,20 @@ class MileageApi {
     return this.mock(this.mockVehicles)
   }
 
-  createVehicle(vehicle) {
-    const newVehicle = new Vehicle(vehicle)
-    this.mockVehicles = [
-      ...this.mockVehicles,
-      vehicle,
-    ]
-    return this.mock(newVehicle, () => {
-      newVehicle.id = this.nextVehicleId
+  saveVehicle(vehicle) {
+    if (vehicle.id) {
+      const index = _.findIndex(this.mockVehicles, v => v.id == vehicle.id)
+      this.mockVehicles[index] = vehicle
+    } else {
+      vehicle.id = this.nextVehicleId++
       this.nextVehicleId++
-    })
+      this.mockVehicles = [
+        ...this.mockVehicles,
+        vehicle,
+      ]
+    }
+
+    return this.mock(vehicle)
   }
 
   getProfile() {

@@ -1,11 +1,15 @@
 import { AUTHENTICATED } from '../profile/actions'
 import * as actions from './actions'
 import { SHOW_ERROR } from '../messages/actions'
+import _ from 'lodash'
+
+import VehicleViewModel from '../view-models/vehicle'
 
 const defaultState = {
   stale: false,
   vehicles: [],
   showVehicleDialog: false,
+  editVehicleId: null,
 }
 
 export default function vehicleListReducer(state = defaultState, action) {
@@ -22,15 +26,23 @@ export default function vehicleListReducer(state = defaultState, action) {
         showVehicleDialog: false,
       }
 
-    case actions.CREATE_VEHICLE_SUCCESSFUL:
+    case actions.SAVE_VEHICLE_SUCCESSFUL: {
+      let vehicles = [...state.vehicles]
+      const newVehicle = new VehicleViewModel(action.newVehicle)
+      const index = _.findIndex(vehicles, v => v.id == newVehicle.id)
+
+      if (index >= 0) {
+        vehicles[index] = newVehicle
+      } else {
+        vehicles.push(newVehicle)
+      }
+
       return {
         ...state,
-        vehicles: [
-          ...state.vehicles,
-          action.newVehicle,
-        ],
+        vehicles,
         showVehicleDialog: false,
       }
+    }
 
     case actions.FETCHING_VEHICLES:
       return {
@@ -41,7 +53,7 @@ export default function vehicleListReducer(state = defaultState, action) {
     case actions.FETCH_VEHICLES_SUCCESS:
       return {
         stale: false,
-        vehicles: action.vehicles,
+        vehicles: _.map(action.vehicles, v => new VehicleViewModel(v)),
         gettingVehicles: false,
       }
 

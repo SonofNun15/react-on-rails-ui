@@ -25,7 +25,7 @@ class VehicleContainer extends React.Component {
   }
 
   saveVehicle(vehicle) {
-    this.props.actions.createVehicle(vehicle)
+    this.props.actions.saveVehicle(vehicle)
   }
 
   render() {
