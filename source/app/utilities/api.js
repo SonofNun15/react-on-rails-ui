@@ -1,3 +1,5 @@
+import _ from 'lodash'
+
 class MileageApi {
   constructor() {
     this.loggedIn = true// false
@@ -22,6 +24,7 @@ class MileageApi {
         fuelings: [
           { id: 1, miles: 300, gas: 15, cost: 30, date: new Date(2016, 11, 1)}
         ],
+        maintenance: [],
       },
       {
         id: 2,
@@ -49,7 +52,7 @@ class MileageApi {
 
   saveVehicle(vehicle) {
     if (vehicle.id) {
-      const index = _.findIndex(this.mockVehicles, v => v.id == vehicle.id)
+      const index = this.getIndex(vehicle.id)
       this.mockVehicles[index] = vehicle
     } else {
       vehicle.id = this.nextVehicleId++
@@ -61,6 +64,34 @@ class MileageApi {
     }
 
     return this.mock(vehicle)
+  }
+
+  deleteVehicle(id) {
+    const index = this.getIndex(id)
+    this.mockVehicles.splice(index, 1)
+    return this.mock()
+  }
+
+  saveFueling(vehicleId, fueling) {
+    const index = this.getIndex(vehicleId)
+    return this.mock(fueling, () => {
+      fueling.id = this.nextFuelingId
+      this.nextFuelingId++
+      this.mockVehicles[index].fuelings.push(fueling)
+    })
+  }
+
+  saveMaintenance(vehicleId, maintenance) {
+    const index = this.getIndex(vehicleId)
+    return this.mock(maintenance, () => {
+      maintenance.id = this.nextMaintenanceId
+      this.nextMaintenanceId++
+      this.mockVehicles[index].maintenance.push(maintenance)
+    })
+  }
+
+  getIndex(id) {
+    return _.findIndex(this.mockVehicles, v => v.id == id)
   }
 
   getProfile() {

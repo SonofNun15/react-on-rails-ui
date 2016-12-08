@@ -1,9 +1,10 @@
 import React, { PropTypes } from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
+import { push } from 'react-router-redux'
 
-import * as listActions from '../vehicle-list/actions'
-//import * as actionCreators from './actions'
+import * as listActionCreators from '../vehicle-list/actions'
+import * as actionCreators from './actions'
 import VehicleDialog from '../vehicle-dialog/dialog'
 import VehicleDetails from './vehicle'
 
@@ -15,6 +16,12 @@ class VehicleContainer extends React.Component {
     this.saveVehicle = this.saveVehicle.bind(this)
     this.closeVehicleDialog = this.closeVehicleDialog.bind(this)
     this.deleteVehicle = this.deleteVehicle.bind(this)
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.vehicle == null) {
+      nextProps.dispatch(push('/'))
+    }
   }
 
   editVehicle() {
@@ -30,7 +37,8 @@ class VehicleContainer extends React.Component {
   }
 
   deleteVehicle() {
-    console.log('delete')
+    const { actions, id } = this.props
+    actions.deleteVehicle(id)
   }
 
   render() {
@@ -75,7 +83,8 @@ function mapStateToProps(state, ownProps) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    listActions: bindActionCreators(listActions, dispatch),
+    actions: bindActionCreators(actionCreators, dispatch),
+    listActions: bindActionCreators(listActionCreators, dispatch),
   }
 }
 

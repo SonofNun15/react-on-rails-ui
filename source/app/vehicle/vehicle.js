@@ -17,7 +17,8 @@ const VehicleDetails = ({ vehicle, onEdit, onDelete }) => {
           <MileageSummary vehicle={vehicle} />
         </div>
       </div>
-      <VehicleDataTable fuelings={vehicle.fuelings}
+      <VehicleDataTable vehicleId={vehicle.id}
+                        fuelings={vehicle.fuelings}
                         maintenance={vehicle.maintenance} />
     </div>
   )

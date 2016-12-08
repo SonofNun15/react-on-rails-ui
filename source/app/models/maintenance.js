@@ -1,3 +1,5 @@
+import moment from 'moment'
+
 class Maintenance {
   constructor(values, isLastMaintenance, requiresMaintenance) {
     this.isLastMaintenance = isLastMaintenance
@@ -7,7 +9,7 @@ class Maintenance {
     this.mechanic = values.mechanic
     this.description = values.description
     this.cost = values.cost
-    this.date = values.date
+    this.date = moment(values.date)
   }
 
   needsAttention() {

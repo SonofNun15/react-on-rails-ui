@@ -4,7 +4,7 @@ class VehicleViewModel extends Vehicle {
   constructor(vehicleData) {
     super(vehicleData)
 
-    this.editor = null
+    this.editor = vehicleData.editor
   }
 }
 

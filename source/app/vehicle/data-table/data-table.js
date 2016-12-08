@@ -1,20 +1,21 @@
 import React, { PropTypes } from 'react'
 import _ from 'lodash'
 
-import DataEntry from './data-entry'
+import DataEntryContainer from './data-entry/container'
 import DataList from './data-list'
 
-const VehicleDataTable = ({ fuelings, maintenance }) => {
-  const lineItems = _(fuelings.concat(maintenance)).orderBy(item => item.date).value()
+const VehicleDataTable = ({ vehicleId, fuelings, maintenance }) => {
+  const lineItems = _(fuelings.concat(maintenance)).orderBy(item => item.date, 'desc').value()
   return (
     <div>
-      <DataEntry />
+      <DataEntryContainer vehicleId={vehicleId} />
       <DataList lineItems={lineItems} />
     </div>
   )
 }
 
 VehicleDataTable.propTypes = {
+  vehicleId: PropTypes.number,
   fuelings: PropTypes.array.isRequired,
   maintenance: PropTypes.array.isRequired,
 }

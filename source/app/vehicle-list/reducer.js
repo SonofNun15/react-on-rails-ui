@@ -1,8 +1,11 @@
-import { AUTHENTICATED } from '../profile/actions'
-import * as actions from './actions'
-import { SHOW_ERROR } from '../messages/actions'
 import _ from 'lodash'
 
+import { AUTHENTICATED } from '../profile/actions'
+import { SHOW_ERROR } from '../messages/actions'
+import * as actions from './actions'
+import * as vehicleActions from '../vehicle/actions'
+
+import vehicleReducer from '../vehicle/reducer'
 import VehicleViewModel from '../view-models/vehicle'
 
 const defaultState = {
@@ -13,6 +16,16 @@ const defaultState = {
 }
 
 export default function vehicleListReducer(state = defaultState, action) {
+  if (action.vehicleAction) {
+    const vehicles = [...state.vehicles]
+    const vehicleId = _.findIndex(vehicles, v => v.id == action.vehicleId)
+    vehicles[vehicleId] = vehicleReducer(vehicles[vehicleId], action)
+    return {
+      ...state,
+      vehicles,
+    }
+  }
+
   switch(action.type) {
     case actions.OPEN_VEHICLE_DIALOG:
       return {
@@ -56,6 +69,16 @@ export default function vehicleListReducer(state = defaultState, action) {
         vehicles: _.map(action.vehicles, v => new VehicleViewModel(v)),
         gettingVehicles: false,
       }
+
+    case vehicleActions.DELETE_VEHICLE_SUCCESSFUL: {
+      let vehicles = [...state.vehicles]
+      const index = _.findIndex(vehicles, v => v.id == action.vehicleId)
+      vehicles.splice(index, 1)
+      return {
+        ...state,
+        vehicles,
+      }
+    }
 
     case SHOW_ERROR:
       return {

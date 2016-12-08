@@ -1,3 +1,5 @@
+import moment from 'moment'
+
 class Fueling {
   constructor(values, getMPG) {
     this.vehicleMPG = getMPG
@@ -6,7 +8,7 @@ class Fueling {
     this.miles = values.miles
     this.gas = values.gas
     this.cost = values.cost
-    this.date = values.date
+    this.date = moment(values.date)
   }
 
   mpg() {

@@ -6,7 +6,7 @@ import LineItem from './line-item'
 const DataList = ({ lineItems }) => {
   return (
     <div className="data-table">
-      {_.map(lineItems, item => <LineItem key={item.id} item={item} />)}
+      {_.map(lineItems, item => <LineItem key={item.constructor.name + item.id} item={item} />)}
     </div>
   )
 }
