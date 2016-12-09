@@ -15,32 +15,37 @@ const defaultState = {
   editVehicleId: null,
 }
 
-export default function vehicleListReducer(state = defaultState, action) {
-  if (action.vehicleAction) {
-    const vehicles = [...state.vehicles]
-    const vehicleId = _.findIndex(vehicles, v => v.id == action.vehicleId)
-    vehicles[vehicleId] = vehicleReducer(vehicles[vehicleId], action)
-    return {
-      ...state,
-      vehicles,
-    }
+function reduceVehicle(vehicles, action) {
+  const vehicleIndex = _.findIndex(vehicles, v => v.id == action.vehicleId)
+  if (vehicleIndex >= 0) {
+    let clone = [...vehicles]
+    clone[vehicleIndex] = vehicleReducer(vehicles[vehicleIndex], action)
+    return clone
+  } else {
+    return vehicles
   }
+}
+
+export default function vehicleListReducer(state = defaultState, action) {
+  const vehiclesReducedState = action.vehicleId != null
+    ? { ...state, vehicles: reduceVehicle(state.vehicles, action) }
+    : state
 
   switch(action.type) {
     case actions.OPEN_VEHICLE_DIALOG:
       return {
-        ...state,
+        ...vehiclesReducedState,
         showVehicleDialog: true,
       }
 
     case actions.CLOSE_VEHICLE_DIALOG:
       return {
-        ...state,
+        ...vehiclesReducedState,
         showVehicleDialog: false,
       }
 
     case actions.SAVE_VEHICLE_SUCCESSFUL: {
-      let vehicles = [...state.vehicles]
+      let vehicles = [...vehiclesReducedState.vehicles]
       const newVehicle = new VehicleViewModel(action.newVehicle)
       const index = _.findIndex(vehicles, v => v.id == newVehicle.id)
 
@@ -51,7 +56,7 @@ export default function vehicleListReducer(state = defaultState, action) {
       }
 
       return {
-        ...state,
+        ...vehiclesReducedState,
         vehicles,
         showVehicleDialog: false,
       }
@@ -59,7 +64,7 @@ export default function vehicleListReducer(state = defaultState, action) {
 
     case actions.FETCHING_VEHICLES:
       return {
-        ...state,
+        ...vehiclesReducedState,
         gettingVehicles: true,
       }
 
@@ -71,28 +76,28 @@ export default function vehicleListReducer(state = defaultState, action) {
       }
 
     case vehicleActions.DELETE_VEHICLE_SUCCESSFUL: {
-      let vehicles = [...state.vehicles]
+      let vehicles = [...vehiclesReducedState.vehicles]
       const index = _.findIndex(vehicles, v => v.id == action.vehicleId)
       vehicles.splice(index, 1)
       return {
-        ...state,
+        ...vehiclesReducedState,
         vehicles,
       }
     }
 
     case SHOW_ERROR:
       return {
-        ...state,
+        ...vehiclesReducedState,
         gettingVehicles: false,
       }
 
     case AUTHENTICATED:
       return {
-        ...state,
+        ...vehiclesReducedState,
         stale: true,
       }
 
     default:
-      return state
+      return vehiclesReducedState
   }
 }

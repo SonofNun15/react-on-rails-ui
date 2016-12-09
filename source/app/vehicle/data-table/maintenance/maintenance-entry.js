@@ -18,10 +18,10 @@ const MaintenanceEntry = ({ maintenance }) => {
         <span>{moment(maintenance.date).format('MMM D, YYYY')}</span>
       </div>
       <div className="action col-sm-2">
-        <button className="btn btn-link">
+        <button className="btn btn-default">
           <i className="fa fa-pencil"></i>
         </button>
-        <button className="btn btn-link">
+        <button className="btn btn-danger">
           <i className="fa fa-times"></i>
         </button>
       </div>

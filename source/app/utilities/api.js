@@ -90,8 +90,22 @@ class MileageApi {
     })
   }
 
+  deleteFueling(vehicleId, fuelingId) {
+    const index = this.getIndex(vehicleId)
+    const vehicle = this.mockVehicles[index]
+    const fuelingIndex = this.getFuelingIndex(vehicle, fuelingId)
+
+    return this.mock(null, () => {
+      vehicle.fuelings.splice(fuelingIndex, 1)
+    })
+  }
+
   getIndex(id) {
     return _.findIndex(this.mockVehicles, v => v.id == id)
+  }
+
+  getFuelingIndex(vehicle, id) {
+    return _.findIndex(vehicle.fuelings, f => f.id == id)
   }
 
   getProfile() {

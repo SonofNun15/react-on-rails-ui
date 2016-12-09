@@ -1,6 +1,7 @@
 import React, { PropTypes } from 'react'
 import moment from 'moment'
 
+import TextInput from '../../../forms/text-input'
 import NumberInput from '../../../forms/number-input'
 import DateInput from '../../../forms/date-input'
 
@@ -10,14 +11,19 @@ class FuelingEditor extends React.Component {
 
     this.onChange = this.onChange.bind(this)
     this.onChangeNumber = this.onChangeNumber.bind(this)
-    this.create = this.create.bind(this)
+    this.save = this.save.bind(this)
 
     const today = moment().format('YYYY-MM-DD')
-    this.state = {
-      gas: '',
-      miles: '',
-      cost: '',
-      date: today,
+
+    if (props.fueling) {
+      this.state = { ...props.fueling }
+    } else {
+      this.state = {
+        gas: '',
+        miles: '',
+        cost: '',
+        date: today,
+      }
     }
   }
 
@@ -37,13 +43,33 @@ class FuelingEditor extends React.Component {
     })
   }
 
-  create(event) {
+  save(event) {
+    const { onSave, onError } = this.props
     event.preventDefault()
-    const { onCreate } = this.props
-    onCreate({
-      ...this.state,
-      date: moment(this.state.date),
-    })
+
+    if (!this.valid()) {
+      onError(this.error())
+    } else {
+      onSave({
+        ...this.state,
+        date: moment(this.state.date),
+      })
+    }
+  }
+
+  valid() {
+    return this.error() == null
+  }
+
+  error() {
+    if (isNaN(gas)) {
+      return 'Gas must be a number'
+    } else {
+      const date = moment(this.date)
+      if (!date.isValid()) {
+        return 'Date must be a valid date'
+      }
+    }
   }
 
   render() {
@@ -51,9 +77,9 @@ class FuelingEditor extends React.Component {
     const { gas, miles, cost, date } = this.state
     return (
       <div>
-        <form className="form-inline" onSubmit={this.create}>
-          <NumberInput name="gas" placeholder="Gas"
-                       value={gas} onChange={this.onChangeNumber} />
+        <form className="form-inline" onSubmit={this.save}>
+          <TextInput name="gas" placeholder="Gas" step={0.1}
+                       value={gas} onChange={this.onChange} />
           <NumberInput name="miles" placeholder="Miles"
                        value={miles} onChange={this.onChangeNumber} />
           <NumberInput name="cost" placeholder="Cost"
@@ -76,8 +102,15 @@ class FuelingEditor extends React.Component {
 }
 
 FuelingEditor.propTypes = {
-  onCreate: PropTypes.func,
+  fueling: PropTypes.shape({
+    gas: PropTypes.number,
+    miles: PropTypes.number,
+    cost: PropTypes.number,
+    date: PropTypes.any,
+  }),
+  onSave: PropTypes.func,
   onClose: PropTypes.func,
+  onError: PropTypes.func,
 }
 
 export default FuelingEditor

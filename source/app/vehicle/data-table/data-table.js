@@ -9,7 +9,7 @@ const VehicleDataTable = ({ vehicleId, fuelings, maintenance }) => {
   return (
     <div>
       <DataEntryContainer vehicleId={vehicleId} />
-      <DataList lineItems={lineItems} />
+      <DataList vehicleId={vehicleId} lineItems={lineItems} />
     </div>
   )
 }

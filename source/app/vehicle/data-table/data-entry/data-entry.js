@@ -2,16 +2,16 @@ import React, { PropTypes } from 'react'
 
 import Fueling from '../../../models/fueling'
 import Maintenance from '../../../models/maintenance'
-import FuelingEditor from './fueling-editor'
-import MaintenanceEditor from './maintenance-editor'
+import FuelingEditor from '../fueling/fueling-editor'
+import MaintenanceEditor from '../maintenance/maintenance-editor'
 
-function getEditorCtrl(editor, onCreateFueling, onCreateMaintenance, onClose) {
+function getEditorCtrl(editor, onCreateFueling, onCreateMaintenance, onClose, onError) {
   switch(editor) {
     case Fueling:
-      return <FuelingEditor onCreate={onCreateFueling} onClose={onClose} />
+      return <FuelingEditor onSave={onCreateFueling} onClose={onClose} onError={onError} />
 
     case Maintenance:
-      return <MaintenanceEditor onCreate={onCreateMaintenance} onClose={onClose} />
+      return <MaintenanceEditor onSave={onCreateMaintenance} onClose={onClose} onError={onError} />
   }
 }
 
@@ -22,8 +22,9 @@ const DataEntry = ({
     onAddMaintenance,
     onSaveMaintenance,
     onClose,
+    onError,
   }) => {
-  const editorCtrl = getEditorCtrl(editor, onSaveFueling, onSaveMaintenance, onClose)
+  const editorCtrl = getEditorCtrl(editor, onSaveFueling, onSaveMaintenance, onClose, onError)
   return (
     <div>
       <div className="buttons">
@@ -46,6 +47,7 @@ DataEntry.propTypes = {
   onAddMaintenance: PropTypes.func,
   onSaveMaintenance: PropTypes.func,
   onClose: PropTypes.func,
+  onError: PropTypes.func,
 }
 
 export default DataEntry

@@ -11,14 +11,19 @@ class MaintenanceEditor extends React.Component {
 
     this.onChange = this.onChange.bind(this)
     this.onChangeNumber = this.onChangeNumber.bind(this)
-    this.create = this.create.bind(this)
+    this.save = this.save.bind(this)
 
     const today = moment().format('YYYY-MM-DD')
-    this.state = {
-      mechanic: '',
-      description: '',
-      cost: '',
-      date: today,
+
+    if (props.maintenance) {
+      this.state = { ...props.maintenance }
+    } else {
+      this.state = {
+        mechanic: '',
+        description: '',
+        cost: '',
+        date: today,
+      }
     }
   }
 
@@ -38,10 +43,10 @@ class MaintenanceEditor extends React.Component {
     })
   }
 
-  create(event) {
+  save(event) {
     event.preventDefault()
-    const { onCreate } = this.props
-    onCreate({
+    const { onSave } = this.props
+    onSave({
       ...this.state,
       date: moment(this.state.date),
     })
@@ -52,7 +57,7 @@ class MaintenanceEditor extends React.Component {
     const { mechanic, description, cost, date } = this.state
     return (
       <div>
-        <form className="form-inline" onSubmit={this.create}>
+        <form className="form-inline" onSubmit={this.save}>
           <TextInput name="mechanic" placeholder="Mechanic"
                      value={mechanic} onChange={this.onChange} />
           <TextInput name="description" placeholder="Description"
@@ -77,8 +82,9 @@ class MaintenanceEditor extends React.Component {
 }
 
 MaintenanceEditor.propTypes = {
-  onCreate: PropTypes.func,
+  onSave: PropTypes.func,
   onClose: PropTypes.func,
+  maintenance: PropTypes.object,
 }
 
 export default MaintenanceEditor
