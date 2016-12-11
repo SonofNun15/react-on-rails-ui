@@ -47,4 +47,32 @@
       }
     }
   }
+
+  .editor {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    .editor-controls {
+      flex-grow: 1;
+    }
+
+    .editor-buttons {
+      flex-grow: 0;
+    }
+  }
+}
+
+@media screen and (max-width : 902px) {
+  .vehicle {
+    .editor {
+      display: block;
+
+      .editor-buttons {
+        margin-top: 5px;
+        margin-bottom: 5px;
+        text-align: right;
+      }
+    }
+  }
 }

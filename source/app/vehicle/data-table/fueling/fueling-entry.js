@@ -4,7 +4,7 @@ import numeral from 'numeral'
 
 const FuelingEntry = ({ fueling, onEdit, onDelete }) => {
   return (
-    <div className="entry row">
+    <div className="row">
       <div className="col-sm-3">
         {
           fueling.aboveAverageMPG()

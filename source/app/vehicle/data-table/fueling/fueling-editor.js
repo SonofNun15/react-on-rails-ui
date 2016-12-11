@@ -16,7 +16,10 @@ class FuelingEditor extends React.Component {
     const today = moment().format('YYYY-MM-DD')
 
     if (props.fueling) {
-      this.state = { ...props.fueling }
+      this.state = {
+        ...props.fueling,
+        date: moment(props.fueling.date).format('YYYY-MM-DD'),
+      }
     } else {
       this.state = {
         gas: '',
@@ -62,10 +65,10 @@ class FuelingEditor extends React.Component {
   }
 
   error() {
-    if (isNaN(gas)) {
+    if (isNaN(this.state.gas)) {
       return 'Gas must be a number'
     } else {
-      const date = moment(this.date)
+      const date = moment(this.state.date)
       if (!date.isValid()) {
         return 'Date must be a valid date'
       }
@@ -77,24 +80,25 @@ class FuelingEditor extends React.Component {
     const { gas, miles, cost, date } = this.state
     return (
       <div>
-        <form className="form-inline" onSubmit={this.save}>
-          <TextInput name="gas" placeholder="Gas" step={0.1}
-                       value={gas} onChange={this.onChange} />
-          <NumberInput name="miles" placeholder="Miles"
-                       value={miles} onChange={this.onChangeNumber} />
-          <NumberInput name="cost" placeholder="Cost"
-                       value={cost} onChange={this.onChangeNumber} />
-          <DateInput name="date" placeholder="Date"
-                     value={date} onChange={this.onChange} />
-          <div className="pull-right buttons">
+        <form className="editor form-inline" onSubmit={this.save}>
+          <div className="editor-controls">
+            <TextInput name="gas" placeholder="Gas" step={0.1}
+                        value={gas} onChange={this.onChange} />
+            <NumberInput name="miles" placeholder="Miles"
+                        value={miles} onChange={this.onChangeNumber} />
+            <NumberInput name="cost" placeholder="Cost"
+                        value={cost} onChange={this.onChangeNumber} />
+            <DateInput name="date" placeholder="Date"
+                      value={date} onChange={this.onChange} />
+          </div>
+          <div className="editor-buttons">
             <button type="button" className="btn btn-danger" onClick={onClose}>
-              <i className="fa fa-times"></i> Close
+              <i className="fa fa-times"></i> Cancel
             </button>
             <button type="submit" className="btn btn-success">
-              <i className="fa fa-plus"></i> Add
+              <i className="fa fa-plus"></i> Save
             </button>
           </div>
-          <div className="clearfix"></div>
         </form>
       </div>
     )

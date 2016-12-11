@@ -1,7 +1,9 @@
-import * as actions from './actions'
 import _ from 'lodash'
 
+import * as actions from './actions'
+import * as fuelingActions from './data-table/fueling/actions'
 import fuelingReducer from './data-table/fueling/reducer'
+
 import VehicleViewModel from '../view-models/vehicle'
 import Fueling from '../models/fueling'
 import Maintenance from '../models/maintenance'
@@ -19,7 +21,7 @@ function reduceFuelings(fuelings, action) {
 
 export default function vehicleReducer(state, action) {
   const fuelingsReducedState = action.fuelingId != null
-    ? { ...state, fuelings: reduceFuelings(state.fuelings, action) }
+    ? new VehicleViewModel({ ...state, fuelings: reduceFuelings(state.fuelings, action) })
     : state
 
   switch(action.type) {
@@ -70,6 +72,16 @@ export default function vehicleReducer(state, action) {
         ...fuelingsReducedState,
         editor: null,
       })
+
+    case fuelingActions.FUELING_DELETED: {
+      const fuelings = [...fuelingsReducedState.fuelings]
+      const index = _.findIndex(fuelings, f => f.id == action.fuelingId)
+      fuelings.splice(index, 1)
+      return new VehicleViewModel({
+        ...fuelingsReducedState,
+        fuelings,
+      })
+    }
 
     default:
       return fuelingsReducedState

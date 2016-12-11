@@ -7,6 +7,7 @@ export const SAVING_FUELING = 'SAVING_FUELING'
 export const FUELING_SAVED = 'FUELING_SAVED'
 export const DELETING_FUELING = 'DELETING_FUELING'
 export const FUELING_DELETED = 'FUELING_DELETED'
+export const CLOSE_FUELING_EDITOR = 'CLOSE_FUELING_EDITOR'
 
 export function showFuelingEditor(vehicleId, fuelingId) {
   return { type: SHOW_FUELING_EDITOR, vehicleId, fuelingId }
@@ -28,7 +29,12 @@ function savingFueling(vehicleId, fuelingId) {
 }
 
 function fuelingSaved(vehicleId, fueling) {
-  return { type: FUELING_SAVED, vehicleId, fueling }
+  return {
+    type: FUELING_SAVED,
+    vehicleId,
+    fuelingId: fueling.id,
+    fueling
+  }
 }
 
 export function deleteFueling(vehicleId, fuelingId) {
@@ -48,4 +54,8 @@ function deletingFueling(vehicleId, fuelingId) {
 
 function fuelingDeleted(vehicleId, fuelingId) {
   return { type: FUELING_DELETED, vehicleId, fuelingId }
+}
+
+export function closeEditor(vehicleId, fuelingId) {
+  return { type: CLOSE_FUELING_EDITOR, vehicleId, fuelingId }
 }

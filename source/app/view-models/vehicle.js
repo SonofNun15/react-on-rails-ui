@@ -9,7 +9,7 @@ class VehicleViewModel extends Vehicle {
 
     this.editor = vehicleData.editor
 
-    this.fuelings = _.map(this.fuelings, f => new FuelingViewModel(f))
+    this.fuelings = _.map(vehicleData.fuelings, f => new FuelingViewModel(f, () => this.lifetimeMPG()))
   }
 }
 

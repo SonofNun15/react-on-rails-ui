@@ -57,21 +57,23 @@ class MaintenanceEditor extends React.Component {
     const { mechanic, description, cost, date } = this.state
     return (
       <div>
-        <form className="form-inline" onSubmit={this.save}>
-          <TextInput name="mechanic" placeholder="Mechanic"
-                     value={mechanic} onChange={this.onChange} />
-          <TextInput name="description" placeholder="Description"
-                     value={description} onChange={this.onChange} />
-          <NumberInput name="cost" placeholder="Cost"
-                       value={cost} onChange={this.onChangeNumber} />
-          <DateInput name="date" placeholder="Date"
-                     value={date} onChange={this.onChange} />
-          <div className="pull-right buttons">
+        <form className="editor form-inline" onSubmit={this.save}>
+          <div className="editor-controls">
+            <TextInput name="mechanic" placeholder="Mechanic"
+                      value={mechanic} onChange={this.onChange} />
+            <TextInput name="description" placeholder="Description"
+                      value={description} onChange={this.onChange} />
+            <NumberInput name="cost" placeholder="Cost"
+                        value={cost} onChange={this.onChangeNumber} />
+            <DateInput name="date" placeholder="Date"
+                      value={date} onChange={this.onChange} />
+          </div>
+          <div className="editor-buttons">
             <button type="button" className="btn btn-danger" onClick={onClose}>
-              <i className="fa fa-times"></i> Close
+              <i className="fa fa-times"></i> Cancel
             </button>
             <button type="submit" className="btn btn-success">
-              <i className="fa fa-plus"></i> Add
+              <i className="fa fa-plus"></i> Save
             </button>
           </div>
           <div className="clearfix"></div>

@@ -45,16 +45,15 @@ class FuelingContainer extends React.Component {
 
   render() {
     const { fueling } = this.props
-    if (fueling.editing) {
-      return <FuelingEditor fueling={fueling}
-                            onSave={this.saveFueling}
-                            onClose={this.cancel}
-                            onError={this.showError} />
-    } else {
-      return <FuelingEntry fueling={fueling}
-                           onEdit={this.editFueling}
-                           onDelete={this.deleteFueling} />
-    }
+    const fuelingControl = fueling.editing
+      ? <FuelingEditor fueling={fueling}
+                       onSave={this.saveFueling}
+                       onClose={this.cancel}
+                       onError={this.showError} />
+      : <FuelingEntry fueling={fueling}
+                      onEdit={this.editFueling}
+                      onDelete={this.deleteFueling} />
+    return <div className="entry">{fuelingControl}</div>
   }
 }
 

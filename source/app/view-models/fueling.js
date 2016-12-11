@@ -2,7 +2,7 @@ import Fueling from '../models/fueling'
 
 class FuelingViewModel extends Fueling {
   constructor(fueling, getMPG) {
-    super(fueling, getMPG || fueling.vehicleMPG)
+    super(fueling, getMPG)
 
     this.editing = fueling.editing
   }
