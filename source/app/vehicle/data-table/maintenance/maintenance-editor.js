@@ -13,11 +13,13 @@ class MaintenanceEditor extends React.Component {
     this.onChangeNumber = this.onChangeNumber.bind(this)
     this.save = this.save.bind(this)
 
-    const today = moment().format('YYYY-MM-DD')
-
     if (props.maintenance) {
-      this.state = { ...props.maintenance }
+      this.state = {
+        ...props.maintenance,
+        date: moment(props.maintenance.date).format('YYYY-MM-DD'),
+      }
     } else {
+      const today = moment().format('YYYY-MM-DD')
       this.state = {
         mechanic: '',
         description: '',

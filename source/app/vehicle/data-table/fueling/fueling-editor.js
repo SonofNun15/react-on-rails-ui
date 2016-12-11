@@ -13,14 +13,13 @@ class FuelingEditor extends React.Component {
     this.onChangeNumber = this.onChangeNumber.bind(this)
     this.save = this.save.bind(this)
 
-    const today = moment().format('YYYY-MM-DD')
-
     if (props.fueling) {
       this.state = {
         ...props.fueling,
         date: moment(props.fueling.date).format('YYYY-MM-DD'),
       }
     } else {
+      const today = moment().format('YYYY-MM-DD')
       this.state = {
         gas: '',
         miles: '',

@@ -1,11 +1,11 @@
 import React, { PropTypes } from 'react'
 import moment from 'moment'
 
-const MaintenanceEntry = ({ maintenance }) => {
+const MaintenanceEntry = ({ maintenance, onEdit, onDelete }) => {
   const indicator = <i className="fa fa-exclamation-circle important"></i>
 
   return (
-    <div className="entry row">
+    <div className="row">
       <div className="col-sm-3">
         { maintenance.needsAttention() ? indicator : null }
         <i className="fa fa-wrench"></i>
@@ -18,10 +18,10 @@ const MaintenanceEntry = ({ maintenance }) => {
         <span>{moment(maintenance.date).format('MMM D, YYYY')}</span>
       </div>
       <div className="action col-sm-2">
-        <button className="btn btn-default">
+        <button className="btn btn-default" onClick={onEdit}>
           <i className="fa fa-pencil"></i>
         </button>
-        <button className="btn btn-danger">
+        <button className="btn btn-danger" onClick={onDelete}>
           <i className="fa fa-times"></i>
         </button>
       </div>
@@ -36,6 +36,8 @@ MaintenanceEntry.propTypes = {
     description: PropTypes.string,
     date: PropTypes.any,
   }),
+  onEdit: PropTypes.func,
+  onDelete: PropTypes.func,
 }
 
 export default MaintenanceEntry

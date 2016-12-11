@@ -7,14 +7,10 @@ export const SAVING_MAINTENANCE = 'SAVING_MAINTENANCE'
 export const MAINTENANCE_SAVED = 'MAINTENANCE_SAVED'
 export const DELETING_MAINTENANCE = 'DELETING_MAINTENANCE'
 export const MAINTENANCE_DELETED = 'MAINTENANCE_DELETED'
+export const CLOSE_MAINTENANCE_EDITOR = 'CLOSE_MAINTENANCE_EDITOR'
 
 export function showMaintenanceEditor(vehicleId, maintenanceId) {
-  return {
-    vehicleAction: true,
-    type: SHOW_MAINTENANCE_EDITOR,
-    vehicleId,
-    maintenanceId,
-  }
+  return { type: SHOW_MAINTENANCE_EDITOR, vehicleId, maintenanceId }
 }
 
 export function saveMaintenance(vehicleId, maintenance) {
@@ -29,19 +25,14 @@ export function saveMaintenance(vehicleId, maintenance) {
 }
 
 function savingMaintenance(vehicleId, maintenanceId) {
-  return {
-    vehicleAction: true,
-    type: SAVING_MAINTENANCE,
-    vehicleId,
-    maintenanceId,
-  }
+  return { type: SAVING_MAINTENANCE, vehicleId, maintenanceId }
 }
 
 function maintenanceSaved(vehicleId, maintenance) {
   return {
-    vehicleAction: true,
     type: MAINTENANCE_SAVED,
     vehicleId,
+    maintenanceId: maintenance.id,
     maintenance,
   }
 }
@@ -58,19 +49,13 @@ export function deleteMaintenance(vehicleId, maintenanceId) {
 }
 
 function deletingMaintenance(vehicleId, maintenanceId) {
-  return {
-    vehicleAction: true,
-    type: DELETING_MAINTENANCE,
-    vehicleId,
-    maintenanceId,
-  }
+  return { type: DELETING_MAINTENANCE, vehicleId, maintenanceId }
 }
 
 function maintenanceDeleted(vehicleId, maintenanceId) {
-  return {
-    vehicleAction: true,
-    type: MAINTENANCE_DELETED,
-    vehicleId,
-    maintenanceId,
-  }
+  return { type: MAINTENANCE_DELETED, vehicleId, maintenanceId }
+}
+
+export function closeEditor(vehicleId, maintenanceId) {
+  return { type: CLOSE_MAINTENANCE_EDITOR, vehicleId, maintenanceId }
 }

@@ -77,7 +77,7 @@ class MileageApi {
     const vehicle = this.mockVehicles[index]
 
     if (fueling.id != null) {
-      const fuelingIndex = _.findIndex(vehicle.fuelings, f => f.id == fueling.id)
+      const fuelingIndex = this.getFuelingIndex(vehicle, fueling.id)
       return this.mock(fueling, () => {
         vehicle.fuelings[fuelingIndex] = fueling
       })
@@ -92,11 +92,20 @@ class MileageApi {
 
   saveMaintenance(vehicleId, maintenance) {
     const index = this.getIndex(vehicleId)
-    return this.mock(maintenance, () => {
+    const vehicle = this.mockVehicles[index]
+
+    if (maintenance.id != null) {
+      const maintenanceIndex = this.getMaintenanceIndex(vehicle, maintenance.id)
+      return this.mock(maintenance, () => {
+        vehicle.maintenance[maintenanceIndex] = maintenance
+      })
+    } else {
       maintenance.id = this.nextMaintenanceId
       this.nextMaintenanceId++
-      this.mockVehicles[index].maintenance.push(maintenance)
-    })
+      return this.mock(maintenance, () => {
+        this.mockVehicles[index].maintenance.push(maintenance)
+      })
+    }
   }
 
   deleteFueling(vehicleId, fuelingId) {
@@ -109,12 +118,26 @@ class MileageApi {
     })
   }
 
+  deleteMaintenance(vehicleId, maintenanceId) {
+    const index = this.getIndex(vehicleId)
+    const vehicle = this.mockVehicles[index]
+    const maintenanceIndex = this.getMaintenanceIndex(vehicle, maintenanceId)
+
+    return this.mock(null, () => {
+      vehicle.maintenance.splice(maintenanceIndex, 1)
+    })
+  }
+
   getIndex(id) {
     return _.findIndex(this.mockVehicles, v => v.id == id)
   }
 
   getFuelingIndex(vehicle, id) {
     return _.findIndex(vehicle.fuelings, f => f.id == id)
+  }
+
+  getMaintenanceIndex(vehicle, id) {
+    return _.findIndex(vehicle.maintenance, m => m.id == id)
   }
 
   getProfile() {

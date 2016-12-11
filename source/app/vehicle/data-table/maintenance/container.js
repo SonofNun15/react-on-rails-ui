@@ -13,7 +13,7 @@ class MaintenanceContainer extends React.Component {
     this.editMaintenance = this.editMaintenance.bind(this)
     this.saveMaintenance = this.saveMaintenance.bind(this)
     this.cancel = this.cancel.bind(this)
-    this.deleteMaintenance = this.deleteMaintenance(this)
+    this.deleteMaintenance = this.deleteMaintenance.bind(this)
   }
 
   editMaintenance() {
@@ -38,15 +38,14 @@ class MaintenanceContainer extends React.Component {
 
   render() {
     const { maintenance } = this.props
-    if (maintenance.editing) {
-      return <MaintenanceEditor maintenance={maintenance}
-                                onSave={this.saveMaintenance}
-                                onClose={this.cancel} />
-    } else {
-      return <MaintenanceEntry maintenance={maintenance}
-                               onEdit={this.editMaintenance}
-                               onDelete={this.deleteMaintenance} />
-    }
+    const maintenanceControl = maintenance.editing
+      ? <MaintenanceEditor maintenance={maintenance}
+                           onSave={this.saveMaintenance}
+                           onClose={this.cancel} />
+      : <MaintenanceEntry maintenance={maintenance}
+                          onEdit={this.editMaintenance}
+                          onDelete={this.deleteMaintenance} />
+    return <div className="entry">{maintenanceControl}</div>
   }
 }
 
