@@ -6,6 +6,7 @@ import * as actions from './actions'
 import { showError } from '../messages/actions'
 import Profile from './profile'
 import Register from './register'
+import PasswordDialog from './dialog'
 
 class UserEditorContainer extends React.Component {
   constructor(props, context) {
@@ -13,6 +14,9 @@ class UserEditorContainer extends React.Component {
 
     this.createUser = this.createUser.bind(this)
     this.saveUser = this.saveUser.bind(this)
+    this.showPasswordEditDialog = this.showPasswordEditDialog.bind(this)
+    this.changePassword = this.changePassword.bind(this)
+    this.closePasswordEditDialog = this.closePasswordEditDialog.bind(this)
     this.showError = this.showError.bind(this)
   }
 
@@ -24,17 +28,36 @@ class UserEditorContainer extends React.Component {
     this.props.actions.saveUser(user)
   }
 
+  showPasswordEditDialog() {
+    this.props.actions.showPasswordEditDialog()
+  }
+
+  changePassword(newPassword) {
+    this.props.actions.changePassword(newPassword)
+  }
+
+  closePasswordEditDialog() {
+    this.props.actions.closePasswordEditDialog()
+  }
+
   showError(error) {
     this.props.showError(error)
   }
 
   render() {
-    const { newUser, profile } = this.props
+    const { newUser, profile, displayPasswordDialog } = this.props
 
     if (newUser) {
       return <Register onCreate={this.createUser} onError={this.showError} />
     } else {
-      return <Profile profile={profile} onSave={this.saveUser} />
+      return (
+        <div>
+          <Profile profile={profile} onSave={this.saveUser}
+                   onChangePassword={this.showPasswordEditDialog} />
+          <PasswordDialog show={displayPasswordDialog} onCancel={this.closePasswordEditDialog}
+                          onSave={this.changePassword} />
+        </div>
+      )
     }
   }
 }
@@ -42,6 +65,7 @@ class UserEditorContainer extends React.Component {
 UserEditorContainer.propTypes = {
   newUser: PropTypes.bool,
   profile: PropTypes.object,
+  displayPasswordDialog: PropTypes.bool,
   actions: PropTypes.object,
   showError: PropTypes.func,
 }
@@ -52,6 +76,7 @@ function mapStateToProps(state, ownProps) {
   return {
     newUser,
     profile: state.profile.settings,
+    displayPasswordDialog: state.userEditor.showPasswordDialog,
   }
 }
 

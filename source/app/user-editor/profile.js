@@ -27,6 +27,7 @@ class Profile extends Component {
   }
 
   render() {
+    const { onChangePassword } = this.props
     const { name, email } = this.state
     return (
       <div className="profile form">
@@ -37,7 +38,9 @@ class Profile extends Component {
                      value={email} onChange={this.onChange} />
           <div className="form-group">
             <button type="submit" className="btn btn-success">Save</button>
-            <button type="button" className="btn btn-default">Change password</button>
+            <button type="button" className="btn btn-default" onClick={onChangePassword}>
+              Change password
+            </button>
           </div>
         </form>
       </div>
@@ -51,6 +54,7 @@ Profile.propTypes = {
     email: PropTypes.string,
   }),
   onSave: PropTypes.func,
+  onChangePassword: PropTypes.func,
 }
 
 export default Profile

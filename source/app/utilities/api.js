@@ -168,6 +168,11 @@ class MileageApi {
     }
     return this.mock(this.mockUser)
   }
+
+  changePassword() {
+    return this.mock()
+  }
+
   mock(data, execute) {
     return new Promise((resolve) => {
       setTimeout(() => {
