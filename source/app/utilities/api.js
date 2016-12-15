@@ -161,6 +161,13 @@ class MileageApi {
     })
   }
 
+  saveUser(user) {
+    this.mockUser = {
+      ...this.mockUser,
+      ...user,
+    }
+    return this.mock(this.mockUser)
+  }
   mock(data, execute) {
     return new Promise((resolve) => {
       setTimeout(() => {

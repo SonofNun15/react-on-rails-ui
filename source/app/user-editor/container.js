@@ -12,6 +12,7 @@ class UserEditorContainer extends React.Component {
     super(props, context)
 
     this.createUser = this.createUser.bind(this)
+    this.saveUser = this.saveUser.bind(this)
     this.showError = this.showError.bind(this)
   }
 
@@ -19,23 +20,28 @@ class UserEditorContainer extends React.Component {
     this.props.actions.createUser(newUser)
   }
 
+  saveUser(user) {
+    this.props.actions.saveUser(user)
+  }
+
   showError(error) {
     this.props.showError(error)
   }
 
   render() {
-    const { newUser } = this.props
+    const { newUser, profile } = this.props
 
     if (newUser) {
       return <Register onCreate={this.createUser} onError={this.showError} />
     } else {
-      return <Profile />
+      return <Profile profile={profile} onSave={this.saveUser} />
     }
   }
 }
 
 UserEditorContainer.propTypes = {
   newUser: PropTypes.bool,
+  profile: PropTypes.object,
   actions: PropTypes.object,
   showError: PropTypes.func,
 }
@@ -45,6 +51,7 @@ function mapStateToProps(state, ownProps) {
 
   return {
     newUser,
+    profile: state.profile.settings,
   }
 }
 
