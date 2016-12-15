@@ -29,7 +29,7 @@ function loadingProfile() {
   return { type: FETCHING_PROFILE }
 }
 
-function loadProfileSuccess(profile) {
+export function loadProfileSuccess(profile) {
   return { type: FETCH_PROFILE_SUCCESS, profile }
 }
 

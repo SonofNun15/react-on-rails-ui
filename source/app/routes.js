@@ -7,7 +7,7 @@ import VehicleLoader from './utilities/vehicle-loader'
 import VehicleListContainer from './vehicle-list/container'
 import VehicleContainer from './vehicle/container'
 
-import UserEditor from './user-editor/editor'
+import UserEditorContainer from './user-editor/container'
 
 import { requireAuthentication } from './profile/authentication'
 
@@ -22,8 +22,8 @@ export default (
       <IndexRoute component={VehicleListContainer} />
     </Route>
 
-    <Route path="profile" component={requireAuthentication(UserEditor)} />
-    <Route path="register" component={UserEditor} />
-    <Route path="password" component={requireAuthentication(UserEditor)} />
+    <Route path="profile" component={requireAuthentication(UserEditorContainer)} />
+    <Route path="register" component={UserEditorContainer} />
+    <Route path="password" component={requireAuthentication(UserEditorContainer)} />
   </Route>
 )

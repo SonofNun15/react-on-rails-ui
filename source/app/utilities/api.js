@@ -155,6 +155,12 @@ class MileageApi {
     return this.mock(null, () => { this.loggedIn = false })
   }
 
+  createUser(newUser) {
+    return this.mock(newUser, () => {
+      this.mockUser = newUser
+    })
+  }
+
   mock(data, execute) {
     return new Promise((resolve) => {
       setTimeout(() => {

@@ -1,4 +1,5 @@
 import * as actions from './actions'
+import { LOCATION_CHANGE } from 'react-router-redux'
 
 const defaultState = []
 
@@ -9,6 +10,9 @@ export default function messagesReducer(state = defaultState, action) {
       const messages = state.concat([newMessage])
       return messages.slice(0, 2)
     }
+
+    case LOCATION_CHANGE:
+      return []
 
     case actions.DISMISS_MESSAGE: {
       let messages = [...state]
