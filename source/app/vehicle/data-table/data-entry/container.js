@@ -71,7 +71,7 @@ function mapStateToProps(state, ownProps) {
   const vehicle = state.vehicleList.vehicles.find(v => v.id == id)
 
   return {
-    editor: vehicle.editor,
+    editor: (vehicle != null ? vehicle.editor : null),
   }
 }
 

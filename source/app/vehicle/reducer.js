@@ -45,7 +45,7 @@ export default function vehicleReducer(state, action) {
         ...fuelingsReducedState,
         maintenance: reduceMaintenance(fuelingsReducedState.maintenance, action)
       })
-    : state
+    : fuelingsReducedState
 
   switch(action.type) {
     case actions.SHOW_NEW_FUELING_EDITOR:
