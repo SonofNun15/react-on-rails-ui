@@ -20,7 +20,7 @@ export function getProfile() {
       dispatch(loadProfileSuccess(profile))
       dispatch(authenticated())
     }).catch(error => {
-      throw error
+      console.log('unauthorized')
     })
   }
 }
