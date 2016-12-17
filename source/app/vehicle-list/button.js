@@ -24,7 +24,7 @@ const VehicleButton = ({ vehicle }) => {
 
 VehicleButton.propTypes = {
   vehicle: PropTypes.shape({
-    year: PropTypes.string,
+    year: PropTypes.number,
     make: PropTypes.string,
     model: PropTypes.string,
     color: PropTypes.string,

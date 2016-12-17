@@ -5,9 +5,9 @@ class Fueling {
     this.vehicleMPG = getMPG
 
     this.id = values.id
-    this.miles = values.miles
-    this.gas = values.gas
-    this.cost = values.cost
+    this.miles = parseInt(values.miles)
+    this.gas = parseInt(values.gas)
+    this.cost = parseInt(values.cost)
     this.date = moment(values.date)
   }
 
