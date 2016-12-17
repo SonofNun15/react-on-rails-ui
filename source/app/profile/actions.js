@@ -19,7 +19,7 @@ export function getProfile() {
     return api.getProfile().then(profile => {
       dispatch(loadProfileSuccess(profile))
       dispatch(authenticated())
-    }).catch(error => {
+    }).catch(() => {
       console.log('unauthorized')
     })
   }
