@@ -5,6 +5,7 @@ import { showError } from '../messages/actions'
 
 export const FETCHING_PROFILE = 'FETCHING_PROFILE'
 export const FETCH_PROFILE_SUCCESS = 'FETCH_PROFILE_SUCCESS'
+export const FETCH_PROFILE_FAILED = 'FETCH_PROFILE_FAILED'
 export const OPEN_LOGIN = 'OPEN_LOGIN'
 export const CLOSE_LOGIN = 'CLOSE_LOGIN'
 export const LOGGING_IN = 'LOGGING_IN'
@@ -20,7 +21,7 @@ export function getProfile() {
       dispatch(loadProfileSuccess(profile))
       dispatch(authenticated())
     }).catch(() => {
-      console.log('unauthorized')
+      dispatch(loadProfileFailed())
     })
   }
 }
@@ -31,6 +32,10 @@ function loadingProfile() {
 
 export function loadProfileSuccess(profile) {
   return { type: FETCH_PROFILE_SUCCESS, profile }
+}
+
+export function loadProfileFailed() {
+  return { type: FETCH_PROFILE_FAILED }
 }
 
 function authenticated() {
@@ -52,7 +57,7 @@ export function login(email, password) {
       dispatch(authenticated())
       dispatch(push('/'))
     }).catch(error => {
-      dispatch(showError(error))
+      dispatch(showError('Login failed'))
     })
   }
 }

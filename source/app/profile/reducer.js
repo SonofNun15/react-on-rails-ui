@@ -27,6 +27,12 @@ export default function profileReducer(state = defaultState, action) {
       }
     }
 
+    case actions.FETCH_PROFILE_FAILED:
+      return {
+        ...state,
+        authCheckPending: false,
+      }
+
     case actions.OPEN_LOGIN:
       return {
         ...state,

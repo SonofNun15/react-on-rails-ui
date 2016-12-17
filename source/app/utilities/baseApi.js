@@ -1,11 +1,13 @@
 import httpCodes from './httpCodes'
+import { getStore } from '../redux/store'
+import { showError, showWarning } from '../messages/actions'
+import { push } from 'react-router-redux'
 
 const baseApiUrl = 'http://localhost:3000'
 
 function makeUrl(relativePath) {
   return `${baseApiUrl}/${relativePath}`
 }
-
 
 export function get(relativePath) {
   const request = makeRequest(makeUrl(relativePath), 'GET')
@@ -34,29 +36,24 @@ export function del(relativePath) {
 function handleRequest(promise) {
   return promise.then(response => {
     const { status } = response
+    const store = getStore()
 
     if (status == httpCodes.noContent) {
       return
     } else if (httpCodes.success(status)) {
       return response.json()
     } else if (status == httpCodes.unauthorized) {
-      //dispatch(push('/'))
-      console.log('Redirect home')
-      throw 'unauthorized'
+      store.dispatch(push('/'))
+      throw new Error('unauthorized')
     } else if (status == httpCodes.forbidden) {
-      //dispatch(showError('You lack permission to perform the indicated action'))
-      console.log('show permission error')
-      throw 'forbidden'
+      store.dispatch(showError('You lack permission to perform the indicated action'))
+      throw new Error('forbidden')
     } else if (status == httpCodes.invalidRequest) {
-      // process validation error and display
-      console.log('validation error')
-      throw 'validation error'
+      store.dispatch(showWarning(response.json()))
+      throw new Error('validation error')
     } else {
-      console.log('error!')
-      throw 'error'
+      throw new Error('server error')
     }
-  }, error => {
-    console.log(error)
   })
 }
 

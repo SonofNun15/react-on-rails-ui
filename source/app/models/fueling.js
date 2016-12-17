@@ -18,6 +18,10 @@ class Fueling {
   aboveAverageMPG() {
     return this.mpg() > this.vehicleMPG()
   }
+
+  belowAverageMPG() {
+    return this.mpg() < this.vehicleMPG()
+  }
 }
 
 export default Fueling

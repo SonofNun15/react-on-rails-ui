@@ -3,14 +3,17 @@ import moment from 'moment'
 import numeral from 'numeral'
 
 const FuelingEntry = ({ fueling, onEdit, onDelete }) => {
+  let indicator = null
+  if (fueling.aboveAverageMPG()) {
+    indicator = <i className="fa modifier fa-caret-up increase"></i>
+  } else if (fueling.belowAverageMPG()) {
+    indicator = <i className="fa modifier fa-caret-down decrease"></i>
+  }
+
   return (
     <div className="row">
       <div className="col-sm-3">
-        {
-          fueling.aboveAverageMPG()
-            ? <i className="fa modifier fa-caret-up increase"></i>
-            : <i className="fa modifier fa-caret-down decrease"></i>
-        }
+        {indicator}
         <i className="fa fa-fw fa-tachometer"></i>
         <span> {numeral(fueling.mpg()).format('0.[00]')} MPG</span>
       </div>

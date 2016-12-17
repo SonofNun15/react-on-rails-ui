@@ -11,6 +11,12 @@ export default function messagesReducer(state = defaultState, action) {
       return messages.slice(0, 2)
     }
 
+    case actions.SHOW_WARNING: {
+      const newMessage = generateWarning(action.warning)
+      const messages = state.concat([newMessage])
+      return messages.reverse().slice(0, 2)
+    }
+
     case LOCATION_CHANGE:
       return []
 
@@ -29,6 +35,14 @@ function generateError(error) {
   return {
     message: error,
     messageType: 'danger',
+    messageDuration: 5000,
+  }
+}
+
+function generateWarning(warning) {
+  return {
+    message: warning,
+    messageType: 'warn',
     messageDuration: 5000,
   }
 }

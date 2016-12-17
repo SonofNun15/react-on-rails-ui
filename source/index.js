@@ -5,14 +5,17 @@ import { Provider } from 'react-redux'
 import { syncHistoryWithStore } from 'react-router-redux'
 import routes from './app/routes'
 
-import configureStore from './app/redux/configure-store'
+import { configureStore, setStore } from './app/redux/store'
 
 import { getProfile } from './app/profile/actions'
 
 import './styles'
 
 const store = configureStore(browserHistory)
+setStore(store)
+
 store.dispatch(getProfile())
+
 
 const history = syncHistoryWithStore(browserHistory, store)
 
