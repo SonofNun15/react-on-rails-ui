@@ -38,6 +38,7 @@ const FuelingEntry = ({ fueling, onEdit, onDelete }) => {
 FuelingEntry.propTypes = {
   fueling: PropTypes.shape({
     aboveAverageMPG: PropTypes.func,
+    belowAverageMPG: PropTypes.func,
     mpg: PropTypes.func,
     miles: PropTypes.number,
     date: PropTypes.any,

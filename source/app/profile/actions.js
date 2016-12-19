@@ -56,7 +56,7 @@ export function login(email, password) {
       dispatch(loginSuccess(profile))
       dispatch(authenticated())
       dispatch(push('/'))
-    }).catch(error => {
+    }).catch(() => {
       dispatch(showError('Login failed'))
     })
   }
