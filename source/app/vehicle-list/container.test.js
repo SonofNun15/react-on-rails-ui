@@ -31,8 +31,11 @@ function setup(props = {}) {
   return mount(<VehicleContainer {...props} />)
 }
 
+let vehicleId = 0
+
 function makeVehicle(year, make, model, color, baseMileage) {
-  return new Vehicle({ year, make, model, color, baseMileage })
+  vehicleId++
+  return new Vehicle({ id: vehicleId, year, make, model, color, baseMileage })
 }
 
 describe('VehicleContainer', () => {
@@ -44,7 +47,7 @@ describe('VehicleContainer', () => {
   describe('vehicle list', () => {
     it('should signal when list is loading', () => {
       const wrapper = setup({ gettingVehicles: true })
-      expect(wrapper.containsMatchingElement(<VehicleList loading={true} />)).to.be.true
+      expect(wrapper.containsMatchingElement(<VehicleList loading={true} vehicles={[]} />)).to.be.true
     })
 
     it('should display vehicles', () => {
@@ -52,7 +55,7 @@ describe('VehicleContainer', () => {
         makeVehicle(2009, 'Honda', 'Civic', 'Blue', 80341),
         makeVehicle(2004, 'Chevy', 'Cobalt', 'Silver', 130879),
       ]
-      const wrapper = setup({ vehicles: vehicles })
+      const wrapper = setup({ vehicles })
       expect(wrapper.containsMatchingElement(<VehicleList vehicles={vehicles} />)).to.be.true
     })
   })
