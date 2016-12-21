@@ -4,7 +4,6 @@ import { push } from 'react-router-redux'
 import { showError } from '../messages/actions'
 
 export const FETCHING_PROFILE = 'FETCHING_PROFILE'
-export const FETCH_PROFILE_SUCCESS = 'FETCH_PROFILE_SUCCESS'
 export const FETCH_PROFILE_FAILED = 'FETCH_PROFILE_FAILED'
 export const OPEN_LOGIN = 'OPEN_LOGIN'
 export const CLOSE_LOGIN = 'CLOSE_LOGIN'
@@ -18,7 +17,7 @@ export function getProfile() {
   return dispatch => {
     dispatch(loadingProfile())
     return api.getProfile().then(profile => {
-      dispatch(loadProfileSuccess(profile))
+      dispatch(loginSuccess(profile))
       dispatch(authenticated())
     }).catch(() => {
       dispatch(loadProfileFailed())
@@ -26,12 +25,8 @@ export function getProfile() {
   }
 }
 
-function loadingProfile() {
+export function loadingProfile() {
   return { type: FETCHING_PROFILE }
-}
-
-export function loadProfileSuccess(profile) {
-  return { type: FETCH_PROFILE_SUCCESS, profile }
 }
 
 export function loadProfileFailed() {
@@ -62,11 +57,11 @@ export function login(email, password) {
   }
 }
 
-function loggingIn() {
+export function loggingIn() {
   return { type: LOGGING_IN }
 }
 
-function loginSuccess(profile) {
+export function loginSuccess(profile) {
   return { type: LOGIN_SUCCESS, profile }
 }
 
@@ -81,10 +76,10 @@ export function logout() {
   }
 }
 
-function loggingOut() {
+export function loggingOut() {
   return { type: LOGGING_OUT }
 }
 
-function logoutSuccess() {
+export function logoutSuccess() {
   return { type: LOGOUT_SUCCESS }
 }

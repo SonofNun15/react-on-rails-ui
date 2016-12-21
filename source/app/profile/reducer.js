@@ -1,7 +1,7 @@
 import * as actions from './actions'
 import * as messageActions from '../messages/actions'
 
-const defaultState = {
+export const defaultState = {
   loggedIn: false,
   loggingOut: false,
   authCheckPending: true,
@@ -18,7 +18,7 @@ export default function profileReducer(state = defaultState, action) {
         authCheckPending: true,
       }
 
-    case actions.FETCH_PROFILE_SUCCESS: {
+    case actions.LOGIN_SUCCESS: {
       const loggedIn = action.profile != null
       return {
         authCheckPending: false,
@@ -51,14 +51,6 @@ export default function profileReducer(state = defaultState, action) {
         authCheckPending: true,
         showLoginDialog: false,
         loginError: null,
-      }
-
-    case actions.LOGIN_SUCCESS:
-      return {
-        ...state,
-        authCheckPending: false,
-        loggedIn: true,
-        settings: action.profile,
       }
 
     case actions.LOGGING_OUT:
