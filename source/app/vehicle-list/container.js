@@ -56,7 +56,7 @@ VehicleContainer.propTypes = {
   actions: PropTypes.object,
 }
 
-function mapStateToProps(state) {
+export function mapStateToProps(state) {
   return {
     loggedIn: state.profile.loggedIn,
     vehicles: state.vehicleList.vehicles,
@@ -65,7 +65,7 @@ function mapStateToProps(state) {
   }
 }
 
-function mapDispatchToProps(dispatch) {
+export function mapDispatchToProps(dispatch) {
   return {
     actions: bindActionCreators(vehicleActions, dispatch)
   }

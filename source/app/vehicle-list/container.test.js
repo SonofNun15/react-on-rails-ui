@@ -2,7 +2,7 @@ import { expect } from 'chai'
 import sinon from 'sinon'
 import React from 'react'
 import { mount } from 'enzyme'
-import { VehicleContainer } from './container'
+import { VehicleContainer, mapStateToProps } from './container'
 import Welcome from '../welcome/welcome'
 import VehicleList from './list'
 import VehicleDialog from '../vehicle-dialog/dialog'
@@ -93,5 +93,32 @@ describe('VehicleContainer', () => {
     dialog.props().onCreate(newVehicle)
     expect(closeVehicleDialog.calledOnce).to.be.true
     expect(saveVehicle.calledWith(newVehicle)).to.be.true
+  })
+
+  describe('mapStateToProps', () => {
+    it('should map properties from state', () => {
+      const sampleState = {
+        profile: {
+          loggedIn: true,
+          settings: { name: 'Josh' },
+        },
+        vehicleList: {
+          vehicles: [
+            makeVehicle(2003, 'Honda', 'Odyssey', 'Beige', 202097)
+          ],
+          stale: false,
+          gettingVehicles: true,
+          showVehicleDialog: false,
+        },
+      }
+
+      const props = mapStateToProps(sampleState)
+
+      expect(props.loggedIn).to.be.true
+      expect(props.vehicles).to.have.length(1)
+      expect(props.vehicles[0].year).to.equal(2003)
+      expect(props.gettingVehicles).to.be.true
+      expect(props.showVehicleDialog).to.be.false
+    })
   })
 })
