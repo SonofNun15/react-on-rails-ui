@@ -7,7 +7,7 @@ import VehicleList from './list'
 import VehicleDialog from '../vehicle-dialog/dialog'
 import Welcome from '../welcome/welcome'
 
-class VehicleContainer extends React.Component {
+export class VehicleContainer extends React.Component {
   constructor(props, context) {
     super(props, context)
 
@@ -50,7 +50,6 @@ class VehicleContainer extends React.Component {
 
 VehicleContainer.propTypes = {
   loggedIn: PropTypes.bool.isRequired,
-  stale: PropTypes.bool,
   vehicles: PropTypes.array.isRequired,
   gettingVehicles: PropTypes.bool,
   showVehicleDialog: PropTypes.bool,
@@ -60,7 +59,6 @@ VehicleContainer.propTypes = {
 function mapStateToProps(state) {
   return {
     loggedIn: state.profile.loggedIn,
-    stale: state.vehicleList.stale,
     vehicles: state.vehicleList.vehicles,
     gettingVehicles: state.vehicleList.gettingVehicles,
     showVehicleDialog: state.vehicleList.showVehicleDialog,

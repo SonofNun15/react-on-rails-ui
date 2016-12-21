@@ -105,7 +105,7 @@ describe('FuelingEntry', () => {
   describe('the fourth column', () => {
     function getFourthColumn(wrapper) {
       const row = getRow(wrapper)
-      return row.children().at(3)
+      return row.children().last()
     }
 
     it('should trigger onEdit when edit button clicked', () => {
@@ -121,7 +121,7 @@ describe('FuelingEntry', () => {
       const mockDelete = sinon.spy()
       const wrapper = setup({}, undefined, mockDelete)
       const col = getFourthColumn(wrapper)
-      const button = col.find('button').at(1)
+      const button = col.find('button').last()
       button.simulate('click')
       expect(mockDelete.calledOnce).to.be.true
     })

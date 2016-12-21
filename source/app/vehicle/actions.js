@@ -16,7 +16,7 @@ export function deleteVehicle(id) {
     return api.deleteVehicle(id).then(() => {
       dispatch(deleteVehicleSuccessful(id))
     }).catch(() => {
-      dispatch(showEurror('Failed to delete vehicle'))
+      dispatch(showError('Failed to delete vehicle'))
     })
   }
 }
